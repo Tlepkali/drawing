@@ -1,0 +1,48 @@
+#![cfg(feature = "ggez-example")]
+use drawing::seat_map::SeatMap;
+use drawing::geometrical_shapes::Point;
+use ggez::{Context, ContextBuilder, GameResult};
+use ggez::event::{self, EventHandler};
+use ggez::graphics::{self, Color, Rect};
+
+struct SeatMapGame {
+    seat_map: SeatMap,
+}
+
+impl EventHandler for SeatMapGame {
+    fn update(&mut self, _ctx: &mut Context) -> GameResult {
+        Ok(())
+    }
+
+    fn draw(&mut self, ctx: &mut Context) -> GameResult {
+        graphics::clear(ctx, Color::WHITE);
+        for seat in &self.seat_map.seats {
+            let x = seat.rect.a.x as f32;
+            let y = seat.rect.a.y as f32;
+            let size = (seat.rect.b.x - seat.rect.a.x) as f32;
+            let color = match seat.tariff {
+                0 => Color::GREEN,
+                1 => Color::BLUE,
+                _ => Color::RED,
+            };
+            let rect = graphics::Mesh::new_rectangle(
+                ctx,
+                graphics::DrawMode::fill(),
+                Rect::new(x, y, size, size),
+                color,
+            )?;
+            graphics::draw(ctx, &rect, graphics::DrawParam::default())?;
+        }
+        graphics::present(ctx)?;
+        Ok(())
+    }
+}
+
+fn main() -> GameResult {
+    let (mut ctx, event_loop) = ContextBuilder::new("ggez_seat_map", "drawing").build()?;
+    let game = SeatMapGame {
+        seat_map: SeatMap::new(5, 5, &Point::new(10, 10), 40, 5),
+    };
+    event::run(ctx, event_loop, game)
+}
+
