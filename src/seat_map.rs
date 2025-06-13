@@ -22,9 +22,6 @@ impl Drawable for Seat {
             0 => Color::rgba(0, 255, 0, 255),
             1 => Color::rgba(0, 0, 255, 255),
             _ => Color::rgba(255, 0, 0, 255),
-            0 => Color { r: 0, g: 255, b: 0, a: 255 },
-            1 => Color { r: 0, g: 0, b: 255, a: 255 },
-            _ => Color { r: 255, g: 0, b: 0, a: 255 },
         };
         self.rect.draw_filled_color(img, &color);
     }
@@ -42,6 +39,8 @@ impl Seat {
 }
 
 pub struct SeatMap {
+    pub rows: i32,
+    pub cols: i32,
     pub seats: Vec<Seat>,
 }
 
@@ -56,7 +55,41 @@ impl SeatMap {
                 seats.push(Seat::new(&Point::new(x, y), size, tariff));
             }
         }
-        Self { seats }
+        Self { rows, cols, seats }
+    }
+
+    pub fn index(&self, row: i32, col: i32) -> Option<usize> {
+        if row >= 0 && row < self.rows && col >= 0 && col < self.cols {
+            Some((row * self.cols + col) as usize)
+        } else {
+            None
+        }
+    }
+
+    pub fn set_tariff(&mut self, row: i32, col: i32, tariff: u32) {
+        if let Some(idx) = self.index(row, col) {
+            if let Some(seat) = self.seats.get_mut(idx) {
+                seat.tariff = tariff;
+            }
+        }
+    }
+
+    pub fn print_ascii(&self) {
+        for r in 0..self.rows {
+            for c in 0..self.cols {
+                let ch = if let Some(idx) = self.index(r, c) {
+                    match self.seats[idx].tariff {
+                        0 => 'G',
+                        1 => 'B',
+                        _ => 'R',
+                    }
+                } else {
+                    ' '
+                };
+                print!("{} ", ch);
+            }
+            println!();
+        }
     }
 }
 
