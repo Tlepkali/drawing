@@ -1,9 +1,11 @@
 mod geometrical_shapes;
+mod seat_map;
 extern crate raster;
 
 use geometrical_shapes as gs;
 use gs::{Displayable, Drawable};
 use raster::{Color,Image};
+use seat_map::SeatMap;
 
 
 fn main() {
@@ -26,6 +28,10 @@ fn main() {
     for _ in 1..50 {
         gs::Circle::random(image.width, image.height).draw(&mut image);
     }
+
+    let start = gs::Point::new(100, 100);
+    let seatmap = SeatMap::new(5, 10, &start, 15, 5);
+    seatmap.draw(&mut image);
 
     raster::save(&image, "image.png").unwrap();
 }
