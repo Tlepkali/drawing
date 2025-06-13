@@ -3,6 +3,7 @@ mod seat_map;
 mod simple_image;
 mod svg_renderer;
 
+
 use geometrical_shapes as gs;
 use gs::{Displayable, Drawable};
 use simple_image::{Color, Image};
@@ -47,6 +48,8 @@ fn main() {
 
     simple_image::save(&image, "image.png").unwrap();
     svg.save("image.svg").unwrap();
+
+    simple_image::save(&image, "image.png").unwrap();
 }
 
 impl Displayable for Image {

@@ -22,6 +22,9 @@ impl Drawable for Seat {
             0 => Color::rgba(0, 255, 0, 255),
             1 => Color::rgba(0, 0, 255, 255),
             _ => Color::rgba(255, 0, 0, 255),
+            0 => Color { r: 0, g: 255, b: 0, a: 255 },
+            1 => Color { r: 0, g: 0, b: 255, a: 255 },
+            _ => Color { r: 255, g: 0, b: 0, a: 255 },
         };
         self.rect.draw_filled_color(img, &color);
     }
