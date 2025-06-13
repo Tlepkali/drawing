@@ -1,4 +1,4 @@
-use raster::{Color, Image};
+use crate::simple_image::{Color, Image};
 use rand::Rng;
 
 pub trait Drawable{
@@ -132,6 +132,7 @@ impl Drawable for Triangle{
     }
 }
 
+#[derive(Clone, Copy)]
 pub struct Rectangle{
     pub a:Point,
     pub b:Point,

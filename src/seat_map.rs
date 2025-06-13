@@ -1,5 +1,5 @@
 use crate::geometrical_shapes::{Point, Rectangle, Drawable};
-use raster::{Image, Color};
+use crate::simple_image::{Image, Color};
 
 #[derive(Clone)]
 pub struct Seat {

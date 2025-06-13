@@ -1,10 +1,10 @@
 mod geometrical_shapes;
 mod seat_map;
-extern crate raster;
+mod simple_image;
 
 use geometrical_shapes as gs;
 use gs::{Displayable, Drawable};
-use raster::{Color,Image};
+use simple_image::{Color, Image};
 use seat_map::SeatMap;
 
 
@@ -33,13 +33,13 @@ fn main() {
     let seatmap = SeatMap::new(5, 10, &start, 15, 5);
     seatmap.draw(&mut image);
 
-    raster::save(&image, "image.png").unwrap();
+    simple_image::save(&image, "image.png").unwrap();
 }
 
 impl Displayable for Image {
     fn display(&mut self, x: i32, y: i32, color: Color) {
         if x >= 0 && x < self.width && y >= 0 && y < self.height {
-            self.set_pixel(x, y, color).unwrap();
+            self.set_pixel(x, y, color);
         }
     }
 }
