@@ -13,6 +13,7 @@ rand = "0.8.5"
 eframe = "0.31"
 iced = "0.13"
 pixels = "0.15"
+winit = "0.30"
 
 [features]
 egui-example = []
@@ -32,5 +33,10 @@ required-features = ["iced-example"]
 [[example]]
 name = "pixels_seat_map"
 path = "examples/pixels_seat_map.rs"
+required-features = ["pixels-example"]
+
+[[example]]
+name = "pixels_canvas"
+path = "examples/pixels_canvas.rs"
 required-features = ["pixels-example"]
 
