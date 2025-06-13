@@ -8,3 +8,29 @@ edition = "2021"
 [dependencies]
 image = "0.25"
 rand = "0.8.5"
+
+[dev-dependencies]
+eframe = "0.31"
+iced = "0.13"
+pixels = "0.15"
+
+[features]
+egui-example = []
+iced-example = []
+pixels-example = []
+
+[[example]]
+name = "egui_seat_map"
+path = "examples/egui_seat_map.rs"
+required-features = ["egui-example"]
+
+[[example]]
+name = "iced_seat_map"
+path = "examples/iced_seat_map.rs"
+required-features = ["iced-example"]
+
+[[example]]
+name = "pixels_seat_map"
+path = "examples/pixels_seat_map.rs"
+required-features = ["pixels-example"]
+
