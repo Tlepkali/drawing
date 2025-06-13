@@ -1,5 +1,6 @@
 use crate::geometrical_shapes::{Point, Rectangle, Drawable};
 use crate::simple_image::{Image, Color};
+use crate::svg_renderer::SvgRenderer;
 
 #[derive(Clone)]
 pub struct Seat {
@@ -18,11 +19,25 @@ impl Seat {
 impl Drawable for Seat {
     fn draw(&self, img: &mut Image) {
         let color = match self.tariff {
+            0 => Color::rgba(0, 255, 0, 255),
+            1 => Color::rgba(0, 0, 255, 255),
+            _ => Color::rgba(255, 0, 0, 255),
             0 => Color { r: 0, g: 255, b: 0, a: 255 },
             1 => Color { r: 0, g: 0, b: 255, a: 255 },
             _ => Color { r: 255, g: 0, b: 0, a: 255 },
         };
         self.rect.draw_filled_color(img, &color);
+    }
+}
+
+impl Seat {
+    pub fn draw_svg(&self, svg: &mut SvgRenderer) {
+        let color = match self.tariff {
+            0 => Color::rgba(0, 255, 0, 255),
+            1 => Color::rgba(0, 0, 255, 255),
+            _ => Color::rgba(255, 0, 0, 255),
+        };
+        svg.draw_filled_rectangle(&self.rect, &color);
     }
 }
 
@@ -49,6 +64,14 @@ impl Drawable for SeatMap {
     fn draw(&self, img: &mut Image) {
         for seat in &self.seats {
             seat.draw(img);
+        }
+    }
+}
+
+impl SeatMap {
+    pub fn draw_svg(&self, svg: &mut SvgRenderer) {
+        for seat in &self.seats {
+            seat.draw_svg(svg);
         }
     }
 }

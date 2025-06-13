@@ -46,9 +46,9 @@ pub fn color(r:u8, g:u8, b:u8) -> Color{
 }
 
 #[derive(Debug, Clone, Copy)]
-pub struct Line{ 
-    a: Point, 
-    b: Point
+pub struct Line{
+    pub a: Point,
+    pub b: Point
 }
 
 impl Line{
@@ -109,9 +109,9 @@ pub fn line_algorithm(l:&Line,img:&mut Image,color:&Color){
 }
 
 pub struct Triangle{
-    a:Point,
-    b:Point,
-    c:Point
+    pub a:Point,
+    pub b:Point,
+    pub c:Point
 }
 
 impl Triangle{
@@ -172,8 +172,8 @@ impl Rectangle{
 }
 
 pub struct Circle{
-    center:Point,
-    radius:i32
+    pub center:Point,
+    pub radius:i32
 }
 
 impl Circle{
