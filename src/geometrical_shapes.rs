@@ -11,8 +11,8 @@ pub trait Displayable{
 
 #[derive(Debug, Clone, Copy)]
 pub struct Point{
-    x: i32,
-    y: i32,
+    pub x: i32,
+    pub y: i32,
 }
 
 
@@ -133,10 +133,10 @@ impl Drawable for Triangle{
 }
 
 pub struct Rectangle{
-    a:Point,
-    b:Point,
-    c:Point,
-    d:Point
+    pub a:Point,
+    pub b:Point,
+    pub c:Point,
+    pub d:Point
 }
 
 impl Rectangle{
@@ -155,6 +155,18 @@ impl Rectangle{
         line_algorithm(&l2, img, &color);
         line_algorithm(&l3, img, &color);
         line_algorithm(&l4, img, &color);
+    }
+
+    pub fn draw_filled_color(&self, img:&mut Image, color:&Color){
+        let left = self.a.x.min(self.b.x);
+        let right = self.a.x.max(self.b.x);
+        let top = self.a.y.min(self.b.y);
+        let bottom = self.a.y.max(self.b.y);
+        for x in left..right {
+            for y in top..bottom {
+                img.display(x, y, color.clone());
+            }
+        }
     }
 }
 
